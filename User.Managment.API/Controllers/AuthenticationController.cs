@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using User.Managment.API.Models;
 using User.Managment.API.Models.Authentication.SignUp;
 
 namespace User.Managment.API.Controllers
@@ -29,10 +30,11 @@ namespace User.Managment.API.Controllers
             var userExist = await _userManager.FindByEmailAsync(registerUser.Email);    
             if(userExist != null)
             {
-                return StatusCode(StatusCode.Status403Forbidden,
-                    new ResponseCacheAttribute { Status = "Error", Message = "User already exists!"});
+                return StatusCode(StatusCodes.Status403Forbidden,
+                    new Response { Status = "Error", Message = "User already exists!"});
             }
 
+            //!Add th user in the database
             IdentityUser user = new()
             {
                 Email = registerUser.Email,
@@ -40,16 +42,27 @@ namespace User.Managment.API.Controllers
                 UserName = registerUser.Username
 
             };
-            var result = await _userManager.CreateAsync(user, registerUser.Password);
-            if(result.Succeeded)
+            if(await _roleManager.RoleExistsAsync(role))
             {
-                return StatusCode(StatusCode.Status201Created,
-                    new ResponseCacheAttribute { Status = "Success", Message = "User Created Success!" });
+                var result = await _userManager.CreateAsync(user, registerUser.Password);
+                if (!result.Succeeded)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError,
+                        new Response { Status = "Error", Message = "User Failed to Created!" });
+
+                }
+                //! Add role to user ....
+
+                await _userManager.AddToRoleAsync(user, role);
+                return StatusCode(StatusCodes.Status200OK,
+                        new Response { Status = "Success", Message = "User Created SuccessFully" });
+
             }
+
             else
             {
-                return StatusCode(StatusCode.Status500InternalServerError,
-                    new ResponseCacheAttribute { Status = "Success", Message = "User Failed to Created!" });
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new Response { Status = "Error", Message = " This Role Doesnot Exist" });
             }
         }
     }
