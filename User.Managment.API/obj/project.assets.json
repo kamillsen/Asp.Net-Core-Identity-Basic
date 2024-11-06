@@ -2749,9 +2749,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\senka\\Desktop\\Files\\2023-2024\\CloneProjects\\AspDotNetCoreIdentity\\User.Managment.API\\User.Managment.API.csproj",
-      "projectName": "User.Managment.API",
-      "projectPath": "C:\\Users\\senka\\Desktop\\Files\\2023-2024\\CloneProjects\\AspDotNetCoreIdentity\\User.Managment.API\\User.Managment.API.csproj",
+      "projectUniqueName": "C:\\Users\\senka\\Desktop\\Files\\2023-2024\\CloneProjects\\AspDotNetCoreIdentity\\User.Managment.API\\User.Management.API.csproj",
+      "projectName": "User.Management.API",
+      "projectPath": "C:\\Users\\senka\\Desktop\\Files\\2023-2024\\CloneProjects\\AspDotNetCoreIdentity\\User.Managment.API\\User.Management.API.csproj",
       "packagesPath": "C:\\Users\\senka\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\senka\\Desktop\\Files\\2023-2024\\CloneProjects\\AspDotNetCoreIdentity\\User.Managment.API\\obj\\",
       "projectStyle": "PackageReference",
